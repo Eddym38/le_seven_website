@@ -1,0 +1,169 @@
+<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Starters */}
+          <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+            <h3 className="font-pacifico text-2xl text-[#98A88B] mb-6">
+              Entrée
+            </h3>
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-montserrat font-semibold text-[#4C4C4C] mb-1">
+                  Mediterranean Mezze
+                </h4>
+                <p className="font-montserrat text-sm text-[#4C4C4C]/70 mb-2">
+                  Hummus, tapenade, tzatziki with warm pita
+                </p>
+                <span className="font-montserrat font-semibold text-[#92C6C4]">
+                  €14
+                </span>
+              </div>
+              <div>
+                <h4 className="font-montserrat font-semibold text-[#4C4C4C] mb-1">
+                  Burrata & Tomatoes
+                </h4>
+                <p className="font-montserrat text-sm text-[#4C4C4C]/70 mb-2">
+                  Fresh burrata with heirloom tomatoes
+                </p>
+                <span className="font-montserrat font-semibold text-[#92C6C4]">
+                  €16
+                </span>
+              </div>
+              <div>
+                <h4 className="font-montserrat font-semibold text-[#4C4C4C] mb-1">
+                  Octopus Carpaccio
+                </h4>
+                <p className="font-montserrat text-sm text-[#4C4C4C]/70 mb-2">
+                  Tender octopus with lemon & herbs
+                </p>
+                <span className="font-montserrat font-semibold text-[#92C6C4]">
+                  €18
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Dishes */}
+          <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+            <h3 className="font-pacifico text-2xl text-[#F7C8C8] mb-6">
+              Main Dishes
+            </h3>
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-montserrat font-semibold text-[#4C4C4C] mb-1">
+                  Grilled Sea Bream
+                </h4>
+                <p className="font-montserrat text-sm text-[#4C4C4C]/70 mb-2">
+                  With ratatouille & olive tapenade
+                </p>
+                <span className="font-montserrat font-semibold text-[#92C6C4]">
+                  €28
+                </span>
+              </div>
+              <div>
+                <h4 className="font-montserrat font-semibold text-[#4C4C4C] mb-1">
+                  Lamb Tagine
+                </h4>
+                <p className="font-montserrat text-sm text-[#4C4C4C]/70 mb-2">
+                  Slow-cooked with apricots & almonds
+                </p>
+                <span className="font-montserrat font-semibold text-[#92C6C4]">
+                  €26
+                </span>
+              </div>
+              <div>
+                <h4 className="font-montserrat font-semibold text-[#4C4C4C] mb-1">
+                  Risotto Primavera
+                </h4>
+                <p className="font-montserrat text-sm text-[#4C4C4C]/70 mb-2">
+                  Seasonal vegetables & parmesan
+                </p>
+                <span className="font-montserrat font-semibold text-[#92C6C4]">
+                  €22
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Desserts */}
+          <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+            <h3 className="font-pacifico text-2xl text-[#F6E08B] mb-6">
+              Desserts
+            </h3>
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-montserrat font-semibold text-[#4C4C4C] mb-1">
+                  Tiramisu
+                </h4>
+                <p className="font-montserrat text-sm text-[#4C4C4C]/70 mb-2">
+                  Classic Italian with a twist
+                </p>
+                <span className="font-montserrat font-semibold text-[#92C6C4]">
+                  €9
+                </span>
+              </div>
+              <div>
+                <h4 className="font-montserrat font-semibold text-[#4C4C4C] mb-1">
+                  Lemon Tart
+                </h4>
+                <p className="font-montserrat text-sm text-[#4C4C4C]/70 mb-2">
+                  Homemade with candied lemon
+                </p>
+                <span className="font-montserrat font-semibold text-[#92C6C4]">
+                  €8
+                </span>
+              </div>
+              <div>
+                <h4 className="font-montserrat font-semibold text-[#4C4C4C] mb-1">
+                  Baklava
+                </h4>
+                <p className="font-montserrat text-sm text-[#4C4C4C]/70 mb-2">
+                  Phyllo pastry with honey & pistachios
+                </p>
+                <span className="font-montserrat font-semibold text-[#92C6C4]">
+                  €7
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Wines */}
+          <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+            <h3 className="font-pacifico text-2xl text-[#92C6C4] mb-6">
+              Wines
+            </h3>
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-montserrat font-semibold text-[#4C4C4C] mb-1">
+                  Provence Rosé
+                </h4>
+                <p className="font-montserrat text-sm text-[#4C4C4C]/70 mb-2">
+                  Fresh & fruity, perfect pairing
+                </p>
+                <span className="font-montserrat font-semibold text-[#92C6C4]">
+                  €32
+                </span>
+              </div>
+              <div>
+                <h4 className="font-montserrat font-semibold text-[#4C4C4C] mb-1">
+                  Chianti Classico
+                </h4>
+                <p className="font-montserrat text-sm text-[#4C4C4C]/70 mb-2">
+                  Rich Italian red wine
+                </p>
+                <span className="font-montserrat font-semibold text-[#92C6C4]">
+                  €38
+                </span>
+              </div>
+              <div>
+                <h4 className="font-montserrat font-semibold text-[#4C4C4C] mb-1">
+                  Sancerre
+                </h4>
+                <p className="font-montserrat text-sm text-[#4C4C4C]/70 mb-2">
+                  Crisp Loire Valley white
+                </p>
+                <span className="font-montserrat font-semibold text-[#92C6C4]">
+                  €42
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>

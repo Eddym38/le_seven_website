@@ -27,11 +27,6 @@ export const AboutSection: React.FC = () => {
               alt="Chef preparing Mediterranean dishes"
               className="rounded-2xl shadow-lg w-full h-[500px] object-cover"
             />
-            <div className="absolute -bottom-6 -left-6 bg-[#F6E08B] p-6 rounded-2xl shadow-lg">
-              <p className="font-pacifico text-xl text-[#4C4C4C]">
-                Gourmandise • Fait maison • Passion
-              </p>
-            </div>
           </div>
         </div>
       </div>

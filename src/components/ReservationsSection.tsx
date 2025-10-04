@@ -1,5 +1,4 @@
 import React from "react";
-import { Clock, MapPin } from "lucide-react";
 
 export const ReservationsSection: React.FC = () => {
   return (

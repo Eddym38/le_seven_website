@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import heroBg from "../assets/images/compressed_and_resized/galery-burger_vege.jpg";
 
 interface HeroSectionProps {
   scrollToSection: (sectionId: string) => void;
@@ -25,7 +24,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <motion.div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url(${heroBg})`,
+          backgroundImage: `url(https://res.cloudinary.com/dtuwsi45y/image/upload/v1759673594/hero-restaurant_l5gjgr.jpg)`,
           transform: `scale(${1 + scrollY * 0.0005})`,
         }}
         initial={{ scale: 1.1 }}

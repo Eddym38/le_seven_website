@@ -1,12 +1,11 @@
 import React from "react";
 import { Instagram, Facebook } from "lucide-react";
-import { Link } from "react-router-dom";
 
 interface FooterProps {
   scrollToSection?: (sectionId: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ scrollToSection }) => {
+export const Footer: React.FC<FooterProps> = () => {
   return (
     <footer className="bg-[#4C4C4C] text-white py-12 px-4 ">
       <div className="max-w-6xl mx-auto">

@@ -31,8 +31,12 @@ node_modules/
 dist/
 build/
 
-# Logs
-*.log
+# Images lourdes
+src/assets/images/originals/
+src/assets/images/compressed/
+*.psd
+*.tif
+*.raw
 
 # Environnements
 .env

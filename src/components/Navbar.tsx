@@ -32,11 +32,10 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: "reservations", label: "Reservations", path: "/#reservations" },
     { id: "contact", label: "Contact", path: "/#contact" },
     { id: "privatization", label: "Privatisation", path: "/privatisation" },
-    { id: "blog", label: "Blog", path: "/blog" },
   ];
 
   const handleNavigation = (item: any) => {
-    if (item.id === "blog" || item.id === "privatization") {
+    if (item.id === "privatization") {
       setIsMenuOpen(false);
       return;
     }
@@ -90,7 +89,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span
                 className={`font-montserrat font-medium transition-colors duration-300 ${
                   (activeSection === item.id && location.pathname === "/") ||
-                  (item.id === "blog" && location.pathname === "/blog") ||
                   (item.id === "privatization" && location.pathname === "/privatisation") ||
                   (item.id === "home" && location.pathname === "/")
                     ? "text-primary"
@@ -102,7 +100,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span
                 className={`absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 ease-smooth-out group-hover:w-full ${
                   (activeSection === item.id && location.pathname === "/") ||
-                  (item.id === "blog" && location.pathname === "/blog") ||
                   (item.id === "privatization" && location.pathname === "/privatisation") ||
                   (item.id === "home" && location.pathname === "/")
                     ? "w-full"

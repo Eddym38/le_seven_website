@@ -5,7 +5,6 @@ import { MenuSection } from "../components/MenuSection";
 import { AboutSection } from "../components/AboutSection";
 import { GallerySection } from "../components/GallerySection";
 import { OpeningHoursSection } from "../components/OpeningHoursSection";
-import { ReservationForm } from "../components/ReservationForm";
 import { ReservationsSection } from "../components/ReservationsSection";
 import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
@@ -59,7 +58,6 @@ export const Home: React.FC = () => {
       <AboutSection />
       <GallerySection />
       <OpeningHoursSection />
-      <ReservationForm />
       <ReservationsSection />
       <ContactSection />
       <Footer scrollToSection={scrollToSection} />

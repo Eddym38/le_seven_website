@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,14 +8,15 @@ import {
 import { Home } from "./pages/Home";
 import { Blog } from "./pages/Blog";
 import { Privatization } from "./pages/Privatization";
+import { Preloader } from "./components/Preloader";
+import heroBg from "./assets/images/compressed_and_resized/galery-burger_vege.jpg";
 
 function ScrollToSection() {
   const location = useLocation();
 
   React.useEffect(() => {
-    // Si nous naviguons vers la page d'accueil avec un hash
     if (location.pathname === "/" && location.hash) {
-      const sectionId = location.hash.slice(1); // Enlever le #
+      const sectionId = location.hash.slice(1);
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) {
@@ -29,15 +30,27 @@ function ScrollToSection() {
 }
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const imagesToPreload = [heroBg];
+
   return (
-    <Router>
-      <ScrollToSection />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/privatisation" element={<Privatization />} />
-      </Routes>
-    </Router>
+    <>
+      <Preloader
+        imagesToPreload={imagesToPreload}
+        onLoadComplete={() => setIsLoading(false)}
+      />
+      {!isLoading && (
+        <Router>
+          <ScrollToSection />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/privatisation" element={<Privatization />} />
+          </Routes>
+        </Router>
+      )}
+    </>
   );
 }
 

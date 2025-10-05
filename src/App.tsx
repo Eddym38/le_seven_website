@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Blog } from "./pages/Blog";
+import { Privatization } from "./pages/Privatization";
 
 function ScrollToSection() {
   const location = useLocation();
@@ -34,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/privatisation" element={<Privatization />} />
       </Routes>
     </Router>
   );

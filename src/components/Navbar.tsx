@@ -21,24 +21,25 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: "gallery", label: "Galerie", path: "/#gallery" },
     { id: "reservations", label: "Reservations", path: "/#reservations" },
     { id: "contact", label: "Contact", path: "/#contact" },
+    { id: "privatization", label: "Privatisation", path: "/privatisation" },
     { id: "blog", label: "Blog", path: "/blog" },
   ];
 
   const handleNavigation = (item: any) => {
-    if (item.id === "blog") {
+    if (item.id === "blog" || item.id === "privatization") {
       setIsMenuOpen(false);
       return;
     }
 
     if (item.id === "home") {
       if (location.pathname !== "/") {
-        return; // Let Link handle navigation
+        return;
       } else {
         scrollToSection?.("home");
       }
     } else {
       if (location.pathname !== "/") {
-        return; // Let Link handle navigation with hash
+        return;
       } else {
         scrollToSection?.(item.id);
       }
@@ -63,6 +64,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`font-montserrat font-medium transition-colors ${
                 (activeSection === item.id && location.pathname === "/") ||
                 (item.id === "blog" && location.pathname === "/blog") ||
+                (item.id === "privatization" && location.pathname === "/privatisation") ||
                 (item.id === "home" && location.pathname === "/")
                   ? "text-[#92C6C4]"
                   : "text-[#4C4C4C] hover:text-[#92C6C4]"

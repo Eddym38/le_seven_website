@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tree": "find . -not -path '*/node_modules/*' -not -path '*/dist/*' -not -path '*/.git/*'"
   },
   "dependencies": {
     "i18next": "^25.5.0",
@@ -33,12 +34,5 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",
     "vite": "^7.0.6"
-  },
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "tree": "find . -not -path '*/node_modules/*' -not -path '*/dist/*' -not -path '*/.git/*'"
   }
 }

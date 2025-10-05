@@ -1,5 +1,5 @@
 import React from "react";
-import aboutBg from "../assets/images/galery-souris_serveuse.jpg";
+import aboutBg from "../assets/images/compressed_and_resized/galery-souris_serveuse.jpg";
 
 export const AboutSection: React.FC = () => {
   return (

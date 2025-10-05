@@ -1,10 +1,10 @@
 import React from "react";
-import galery1 from "../assets/images/galery-souris_serveuse.jpg";
-import galery2 from "../assets/images/galery-burger_vege.jpg";
-import galery3 from "../assets/images/galery-camembert.jpg";
-import galery4 from "../assets/images/galery-creme_brulee.jpg";
-import galery5 from "../assets/images/galery-entrecote.jpg";
-import galery6 from "../assets/images/galery-mousse_au_chocolat.jpg";
+import galery1 from "../assets/images/compressed_and_resized/galery-souris_serveuse.jpg";
+import galery2 from "../assets/images/compressed_and_resized/galery-burger_vege.jpg";
+import galery3 from "../assets/images/compressed_and_resized/galery-camembert.jpg";
+import galery4 from "../assets/images/compressed_and_resized/galery-creme_brulee.jpg";
+import galery5 from "../assets/images/compressed_and_resized/galery-entrecote.jpg";
+import galery6 from "../assets/images/compressed_and_resized/galery-mousse_au_chocolat.jpg";
 
 export const GallerySection: React.FC = () => {
   const galleryImages = [galery1, galery2, galery3, galery4, galery5, galery6];

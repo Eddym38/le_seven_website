@@ -1,4 +1,6 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { AnimatedSection } from "./AnimatedSection";
 import { Clock } from "lucide-react";
 
 export const OpeningHoursSection: React.FC = () => {
@@ -13,50 +15,58 @@ export const OpeningHoursSection: React.FC = () => {
   ];
 
   return (
-    <section id="opening-hours" className="py-20 px-4 bg-gradient-to-b from-white to-[#FAF6EF]">
+    <section id="opening-hours" className="py-20 px-4 bg-gradient-to-b from-white to-background">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#92C6C4]/10 rounded-full mb-4">
-            <Clock size={32} className="text-[#92C6C4]" />
-          </div>
-          <h2 className="font-pacifico text-4xl md:text-5xl text-[#92C6C4] mb-4">
+        <AnimatedSection className="text-center mb-12">
+          <motion.div
+            className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4"
+            whileHover={{ rotate: 360 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Clock size={32} className="text-primary" />
+          </motion.div>
+          <h2 className="font-pacifico text-4xl md:text-5xl text-primary mb-4">
             Horaires d'ouverture
           </h2>
-          <p className="font-montserrat text-lg text-[#4C4C4C]/80 max-w-2xl mx-auto">
+          <p className="font-montserrat text-lg text-text-light max-w-2xl mx-auto">
             Nous vous accueillons chaleureusement tout au long de la semaine pour des moments de convivialité
           </p>
-        </div>
+        </AnimatedSection>
 
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden max-w-2xl mx-auto">
-          <div className="divide-y divide-[#92C6C4]/10">
+        <AnimatedSection delay={0.2} className="bg-white rounded-2xl shadow-soft overflow-hidden max-w-2xl mx-auto">
+          <div className="divide-y divide-primary/10">
             {openingHours.map((item, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="flex items-center justify-between px-8 py-5 hover:bg-[#92C6C4]/5 transition-colors duration-200"
+                className="flex items-center justify-between px-8 py-5 hover:bg-primary/5 transition-colors duration-300"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
               >
-                <span className="font-montserrat font-semibold text-[#4C4C4C] text-lg">
+                <span className="font-montserrat font-semibold text-text text-lg">
                   {item.day}
                 </span>
                 <span
                   className={`font-montserrat text-right ${
                     item.isClosed
-                      ? "text-[#4C4C4C]/40 italic"
-                      : "text-[#4C4C4C]/80 font-medium"
+                      ? "text-text-lighter italic"
+                      : "text-text-light font-medium"
                   }`}
                 >
                   {item.hours}
                 </span>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          <div className="bg-gradient-to-r from-[#92C6C4]/10 via-[#F7C8C8]/10 to-[#98A88B]/10 px-8 py-6">
-            <p className="font-montserrat text-sm text-[#4C4C4C]/70 text-center">
+          <div className="bg-gradient-to-r from-primary/10 via-secondary/10 to-accent-olive/10 px-8 py-6">
+            <p className="font-montserrat text-sm text-text-light text-center">
               <span className="font-semibold">Note:</span> Les horaires peuvent varier lors des jours fériés.
               Nous vous recommandons de nous contacter pour confirmer.
             </p>
           </div>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );

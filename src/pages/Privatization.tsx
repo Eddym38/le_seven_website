@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
+import { ScrollToTop } from "../components/ScrollToTop";
 import { Users, Calendar, Utensils, Sparkles, Mail, User, Phone, MessageSquare } from "lucide-react";
 
 export const Privatization: React.FC = () => {
@@ -38,7 +39,7 @@ export const Privatization: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF6EF] text-[#4C4C4C]">
+    <div className="min-h-screen bg-background text-text">
       <Navbar scrollToSection={scrollToSection} />
 
       <section className="pt-24 pb-16 px-4 bg-gradient-to-b from-white to-[#FAF6EF]">
@@ -374,6 +375,7 @@ export const Privatization: React.FC = () => {
       </section>
 
       <Footer scrollToSection={scrollToSection} />
+      <ScrollToTop />
     </div>
   );
 };

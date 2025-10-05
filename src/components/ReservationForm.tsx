@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { AnimatedSection } from "./AnimatedSection";
 import { Calendar, Users, Clock, User, Mail, Phone, MessageSquare } from "lucide-react";
 
 export const ReservationForm: React.FC = () => {
@@ -26,16 +28,17 @@ export const ReservationForm: React.FC = () => {
   return (
     <section id="reservation-form" className="py-20 px-4 bg-white">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="font-pacifico text-4xl md:text-5xl text-[#92C6C4] mb-4">
+        <AnimatedSection className="text-center mb-12">
+          <h2 className="font-pacifico text-4xl md:text-5xl text-primary mb-4">
             Réserver une table
           </h2>
-          <p className="font-montserrat text-lg text-[#4C4C4C]/80 max-w-2xl mx-auto">
+          <p className="font-montserrat text-lg text-text-light max-w-2xl mx-auto">
             Remplissez ce formulaire pour préparer votre réservation, puis finalisez directement sur TheFork
           </p>
-        </div>
+        </AnimatedSection>
 
-        <div className="bg-gradient-to-br from-[#FAF6EF] to-white rounded-2xl shadow-xl p-8 md:p-12 border border-[#92C6C4]/10">
+        <AnimatedSection delay={0.2}>
+          <div className="bg-gradient-to-br from-background to-background-light rounded-2xl shadow-large p-8 md:p-12 border border-primary/10">
           <form className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div className="relative">
@@ -50,7 +53,7 @@ export const ReservationForm: React.FC = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
+                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-primary/20 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 font-montserrat bg-white"
                     placeholder="Jean Dupont"
                   />
                 </div>
@@ -68,7 +71,7 @@ export const ReservationForm: React.FC = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
+                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-primary/20 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 font-montserrat bg-white"
                     placeholder="jean.dupont@email.com"
                   />
                 </div>
@@ -86,7 +89,7 @@ export const ReservationForm: React.FC = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
+                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-primary/20 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 font-montserrat bg-white"
                     placeholder="+33 6 12 34 56 78"
                   />
                 </div>
@@ -127,7 +130,7 @@ export const ReservationForm: React.FC = () => {
                     name="date"
                     value={formData.date}
                     onChange={handleChange}
-                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
+                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-primary/20 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 font-montserrat bg-white"
                   />
                 </div>
               </div>
@@ -182,19 +185,22 @@ export const ReservationForm: React.FC = () => {
             </div>
 
             <div className="pt-4">
-              <button
+              <motion.button
                 type="button"
                 onClick={handleTheForkRedirect}
-                className="w-full bg-gradient-to-r from-[#92C6C4] to-[#98A88B] text-white px-8 py-5 rounded-xl font-montserrat font-semibold text-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                className="w-full bg-gradient-to-r from-primary to-accent-olive text-white px-8 py-5 rounded-xl font-montserrat font-semibold text-lg hover:shadow-glow transition-all duration-400 ease-smooth-out"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
               >
                 Continuer sur TheFork pour finaliser
-              </button>
-              <p className="text-center font-montserrat text-sm text-[#4C4C4C]/60 mt-4">
+              </motion.button>
+              <p className="text-center font-montserrat text-sm text-text-lighter mt-4">
                 Vous serez redirigé vers TheFork pour confirmer votre réservation en toute sécurité
               </p>
             </div>
           </form>
-        </div>
+          </div>
+        </AnimatedSection>
 
         <div className="mt-12 grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
           <div className="text-center p-6 bg-[#FAF6EF] rounded-xl">

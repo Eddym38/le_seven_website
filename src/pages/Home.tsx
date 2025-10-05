@@ -9,6 +9,7 @@ import { ReservationForm } from "../components/ReservationForm";
 import { ReservationsSection } from "../components/ReservationsSection";
 import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
+import { ScrollToTop } from "../components/ScrollToTop";
 
 export const Home: React.FC = () => {
   const [activeSection, setActiveSection] = useState("home");
@@ -51,7 +52,7 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF6EF] text-[#4C4C4C]">
+    <div className="min-h-screen bg-background text-text">
       <Navbar activeSection={activeSection} scrollToSection={scrollToSection} />
       <HeroSection scrollToSection={scrollToSection} />
       <MenuSection />
@@ -62,6 +63,7 @@ export const Home: React.FC = () => {
       <ReservationsSection />
       <ContactSection />
       <Footer scrollToSection={scrollToSection} />
+      <ScrollToTop />
     </div>
   );
 };

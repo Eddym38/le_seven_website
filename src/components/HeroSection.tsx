@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import heroBg from "../assets/images/compressed_and_resized/galery-burger_vege.jpg";
 
 interface HeroSectionProps {
@@ -8,39 +9,72 @@ interface HeroSectionProps {
 export const HeroSection: React.FC<HeroSectionProps> = ({
   scrollToSection,
 }) => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <section
       id="home"
       className="min-h-screen relative flex items-center justify-center overflow-hidden"
     >
-      <div
+      <motion.div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBg})` }}
+        style={{
+          backgroundImage: `url(${heroBg})`,
+          transform: `scale(${1 + scrollY * 0.0005})`,
+        }}
+        initial={{ scale: 1.1 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
       >
         <div className="absolute inset-0 bg-black/40"></div>
-      </div>
+      </motion.div>
 
       <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-        <h1 className="font-pacifico text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight">
+        <motion.h1
+          className="font-pacifico text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        >
           Le Seven
-        </h1>
-        <p className="font-montserrat text-xl md:text-2xl lg:text-3xl mb-8 font-light leading-relaxed"></p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a
+        </motion.h1>
+        <motion.p
+          className="font-montserrat text-xl md:text-2xl lg:text-3xl mb-8 font-light leading-relaxed"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+        ></motion.p>
+        <motion.div
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+        >
+          <motion.a
             href="https://www.thefork.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#92C6C4] text-white px-8 py-4 rounded-full font-montserrat font-semibold text-lg hover:bg-[#F7C8C8] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="bg-primary text-white px-8 py-4 rounded-full font-montserrat font-semibold text-lg hover:bg-secondary transition-all duration-400 ease-smooth-out shadow-lg hover:shadow-glow"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.98 }}
           >
             Reserver une table
-          </a>
-          <button
+          </motion.a>
+          <motion.button
             onClick={() => scrollToSection("menu")}
-            className="border-2 border-white text-white px-8 py-4 rounded-full font-montserrat font-semibold text-lg hover:bg-white hover:text-[#4C4C4C] transition-all duration-300"
+            className="border-2 border-white text-white px-8 py-4 rounded-full font-montserrat font-semibold text-lg hover:bg-white hover:text-text-dark transition-all duration-400 ease-smooth-out"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
             Voir le menu
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </div>
     </section>
   );

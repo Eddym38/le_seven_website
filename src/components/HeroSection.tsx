@@ -1,5 +1,5 @@
 import React from "react";
-import heroBg from "../assets/images/compressed/hero-restaurant.jpg";
+import heroBg from "../assets/images/compressed_and_resized/galery-burger_vege.jpg";
 
 interface HeroSectionProps {
   scrollToSection: (sectionId: string) => void;

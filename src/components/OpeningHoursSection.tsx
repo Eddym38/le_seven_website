@@ -6,16 +6,27 @@ import { Clock } from "lucide-react";
 export const OpeningHoursSection: React.FC = () => {
   const openingHours = [
     { day: "Lundi", hours: "Fermé", isClosed: true },
-    { day: "Mardi", hours: "12h00 - 13h30 / 20h00 - 21h30", isClosed: false },
-    { day: "Mercredi", hours: "12h00 - 13h30 / 20h00 - 21h30", isClosed: false },
-    { day: "Jeudi", hours: "12h00 - 13h30 / 20h00 - 21h30", isClosed: false },
-    { day: "Vendredi", hours: "12h00 - 13h30 / 20h00 - 21h30", isClosed: false },
-    { day: "Samedi", hours: "12h00 - 13h30 / 20h00 - 21h30", isClosed: false },
+    { day: "Mardi", hours: "12h00 - 13h30 / 19h00 - 21h30", isClosed: false },
+    {
+      day: "Mercredi",
+      hours: "12h00 - 13h30 / 19h00 - 21h30",
+      isClosed: false,
+    },
+    { day: "Jeudi", hours: "12h00 - 13h30 / 19h00 - 21h30", isClosed: false },
+    {
+      day: "Vendredi",
+      hours: "12h00 - 13h30 / 19h00 - 21h30",
+      isClosed: false,
+    },
+    { day: "Samedi", hours: "12h00 - 13h30 / 19h00 - 21h30", isClosed: false },
     { day: "Dimanche", hours: "12h00 - 13h30", isClosed: false },
   ];
 
   return (
-    <section id="opening-hours" className="py-20 px-4 bg-gradient-to-b from-white to-background">
+    <section
+      id="opening-hours"
+      className="py-20 px-4 bg-gradient-to-b from-white to-background"
+    >
       <div className="max-w-4xl mx-auto">
         <AnimatedSection className="text-center mb-12">
           <motion.div
@@ -29,11 +40,15 @@ export const OpeningHoursSection: React.FC = () => {
             Horaires d'ouverture
           </h2>
           <p className="font-montserrat text-lg text-text-light max-w-2xl mx-auto">
-            Nous vous accueillons chaleureusement tout au long de la semaine pour des moments de convivialité
+            Nous vous accueillons chaleureusement tout au long de la semaine
+            pour des moments de convivialité
           </p>
         </AnimatedSection>
 
-        <AnimatedSection delay={0.2} className="bg-white rounded-2xl shadow-soft overflow-hidden max-w-2xl mx-auto">
+        <AnimatedSection
+          delay={0.2}
+          className="bg-white rounded-2xl shadow-soft overflow-hidden max-w-2xl mx-auto"
+        >
           <div className="divide-y divide-primary/10">
             {openingHours.map((item, index) => (
               <motion.div
@@ -62,8 +77,9 @@ export const OpeningHoursSection: React.FC = () => {
 
           <div className="bg-gradient-to-r from-primary/10 via-secondary/10 to-accent-olive/10 px-8 py-6">
             <p className="font-montserrat text-sm text-text-light text-center">
-              <span className="font-semibold">Note:</span> Les horaires peuvent varier lors des jours fériés.
-              Nous vous recommandons de nous contacter pour confirmer.
+              <span className="font-semibold">Note:</span> Les horaires peuvent
+              varier lors des jours fériés. Nous vous recommandons de nous
+              contacter pour confirmer.
             </p>
           </div>
         </AnimatedSection>

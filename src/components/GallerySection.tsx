@@ -1,7 +1,7 @@
 import React from "react";
 import { AnimatedSection } from "./AnimatedSection";
 import { ImageCarousel } from "./ImageCarousel";
-import galery1 from "../assets/images/compressed_and_resized/galery-souris_serveuse.jpg";
+import galery1 from "../assets/images/compressed_and_resized/galery-salade_italienne.jpg";
 import galery2 from "../assets/images/compressed_and_resized/galery-burger_vege.jpg";
 import galery3 from "../assets/images/compressed_and_resized/galery-camembert.jpg";
 import galery4 from "../assets/images/compressed_and_resized/galery-creme_brulee.jpg";
@@ -20,6 +20,7 @@ export const GallerySection: React.FC = () => {
       fullRes: galery2,
       alt: "Burger végétarien maison",
     },
+
     {
       thumbnail: galery3,
       fullRes: galery3,

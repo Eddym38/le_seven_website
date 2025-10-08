@@ -76,12 +76,13 @@ export const ContactSection: React.FC = () => {
                     </a>
                   </div>
                 </div>
-
+                {/* 
                 <div className="flex items-start space-x-4">
                   <Clock
                     size={24}
                     className="text-[#92C6C4] mt-1 flex-shrink-0"
                   />
+                  
                   <div>
                     <h4 className="font-montserrat font-semibold text-[#4C4C4C] mb-1">
                       Horaire d'ouverture
@@ -92,7 +93,7 @@ export const ContactSection: React.FC = () => {
                       <p>Fermeture : Dimanche soir et Lundi</p>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

@@ -105,7 +105,16 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
                 key={currentIndex}
                 src={images[currentIndex]}
                 alt={`Gallery image ${currentIndex + 1}`}
-                className="w-full h-full object-contain rounded-lg"
+                className="object-contain rounded-lg"
+                style={{
+                  maxWidth: "90vw",
+                  maxHeight: "80vh",
+                  width: "auto",
+                  height: "auto",
+                  display: "block",
+                  margin: "0 auto",
+                  background: "#000",
+                }}
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}

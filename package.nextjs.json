@@ -1,0 +1,37 @@
+{
+  "name": "le-seven-restaurant-nextjs",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Le Seven - Restaurant bistronomique méditerranéen à Grenoble",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
+  },
+  "dependencies": {
+    "next": "^14.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "framer-motion": "^12.23.22",
+    "lucide-react": "^0.344.0",
+    "resend": "^6.1.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^8",
+    "eslint-config-next": "^14.2.0",
+    "next-sitemap": "^4.2.3",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.5.3"
+  },
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=9.0.0"
+  }
+}

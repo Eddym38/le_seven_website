@@ -5,11 +5,13 @@
     "lib": ["ES2020"],
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "strict": true,
     "resolveJsonModule": true,
-    "outDir": ".vercel/output"
+    "outDir": ".vercel/output",
+    "noEmit": false
   },
-  "include": ["api/**/*"],
+  "include": ["./**/*.ts"],
   "exclude": ["node_modules"]
 }

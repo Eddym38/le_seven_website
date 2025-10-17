@@ -11,7 +11,9 @@
     "tree": "find . -not -path '*/node_modules/*' -not -path '*/dist/*' -not -path '*/.git/*'",
     "server": "node --env-file=.env --import tsx server/api.ts",
     "server:watch": "node --env-file=.env --watch --import tsx server/api.ts",
-    "dev:all": "concurrently \"npm run dev\" \"npm run server:watch\""
+    "dev:all": "concurrently \"npm run dev\" \"npm run server:watch\"",
+    "vercel:dev": "vercel dev",
+    "vercel:deploy": "vercel --prod"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -32,6 +34,7 @@
     "@types/express": "^5.0.3",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
+    "@vercel/node": "^3.0.21",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.21",
     "concurrently": "^9.2.1",

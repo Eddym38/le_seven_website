@@ -45,20 +45,20 @@ export const ReservationsSection: React.FC = () => {
     console.log("📦 Données du formulaire:", formData);
 
     try {
-      console.log(
-        "🌐 Appel API vers http://localhost:3001/api/send-reservation"
-      );
+      // Utiliser l'URL relative en production, localhost en dev
+      const apiUrl = import.meta.env.DEV
+        ? "http://localhost:3001/api/send-reservation"
+        : "/api/send-reservation";
 
-      const response = await fetch(
-        "http://localhost:3001/api/send-reservation",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      console.log("🌐 Appel API vers", apiUrl);
+
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       console.log(
         "📡 Réponse du serveur - Status:",

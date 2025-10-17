@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection } from "./AnimatedSection";
-import { Calendar, Users, Clock, User, Mail, Phone, MessageSquare, CheckCircle } from "lucide-react";
+import {
+  Calendar,
+  Users,
+  Clock,
+  User,
+  Mail,
+  Phone,
+  MessageSquare,
+  CheckCircle,
+} from "lucide-react";
 
 export const ReservationsSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +26,11 @@ export const ReservationsSection: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -28,23 +41,75 @@ export const ReservationsSection: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    console.log("🚀 Envoi de la réservation au backend...");
+    console.log("📦 Données du formulaire:", formData);
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      console.log(
+        "🌐 Appel API vers http://localhost:3001/api/send-reservation"
+      );
 
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        guests: "2",
-        date: "",
-        time: "",
-        message: "",
-      });
-    }, 5000);
+      const response = await fetch(
+        "http://localhost:3001/api/send-reservation",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      console.log(
+        "📡 Réponse du serveur - Status:",
+        response.status,
+        response.statusText
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("❌ Erreur serveur:", errorData);
+        throw new Error("Erreur lors de l'envoi de la réservation");
+      }
+
+      const data = await response.json();
+      console.log("✅ Réponse du serveur:", data);
+
+      if (data.success) {
+        console.log("🎉 Réservation confirmée avec succès !");
+        setIsSubmitted(true);
+
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            guests: "2",
+            date: "",
+            time: "",
+            message: "",
+          });
+        }, 5000);
+      }
+    } catch (error) {
+      console.error("❌ Erreur complète:", error);
+      console.error(
+        "❌ Type d'erreur:",
+        error instanceof Error ? error.constructor.name : typeof error
+      );
+      console.error(
+        "❌ Message d'erreur:",
+        error instanceof Error ? error.message : error
+      );
+
+      alert(
+        "Une erreur est survenue lors de l'envoi de votre réservation. Veuillez réessayer."
+      );
+    } finally {
+      setIsSubmitting(false);
+      console.log("🏁 Fin de la soumission du formulaire");
+    }
   };
 
   return (
@@ -55,7 +120,8 @@ export const ReservationsSection: React.FC = () => {
             Réserver une table
           </h2>
           <p className="font-montserrat text-lg text-text-light max-w-2xl mx-auto">
-            Réservez votre table dès maintenant et laissez-nous vous accueillir dans notre ambiance chaleureuse
+            Réservez votre table dès maintenant et laissez-nous vous accueillir
+            dans notre ambiance chaleureuse
           </p>
         </AnimatedSection>
 
@@ -74,16 +140,21 @@ export const ReservationsSection: React.FC = () => {
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
                 >
-                  <CheckCircle size={64} className="text-primary mx-auto mb-6" />
+                  <CheckCircle
+                    size={64}
+                    className="text-primary mx-auto mb-6"
+                  />
                 </motion.div>
                 <h3 className="font-pacifico text-3xl text-primary mb-4">
                   Réservation confirmée !
                 </h3>
                 <p className="font-montserrat text-text-light text-lg mb-4">
-                  Merci {formData.name} ! Nous avons bien reçu votre demande de réservation.
+                  Merci {formData.name} ! Nous avons bien reçu votre demande de
+                  réservation.
                 </p>
                 <p className="font-montserrat text-text-lighter">
-                  Nous vous contacterons très prochainement au {formData.phone} pour confirmer les détails.
+                  Nous vous contacterons très prochainement au {formData.phone}{" "}
+                  pour confirmer les détails.
                 </p>
               </div>
             </motion.div>
@@ -95,15 +166,24 @@ export const ReservationsSection: React.FC = () => {
               exit={{ opacity: 0 }}
             >
               <AnimatedSection delay={0.2}>
-                <form onSubmit={handleSubmit} className="bg-gradient-to-br from-background to-background-light rounded-2xl shadow-large p-8 md:p-12 border border-primary/10">
+                <form
+                  onSubmit={handleSubmit}
+                  className="bg-gradient-to-br from-background to-background-light rounded-2xl shadow-large p-8 md:p-12 border border-primary/10"
+                >
                   <div className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <label htmlFor="name" className="block font-montserrat font-medium text-text mb-2">
+                        <label
+                          htmlFor="name"
+                          className="block font-montserrat font-medium text-text mb-2"
+                        >
                           Nom complet *
                         </label>
                         <div className="relative">
-                          <User className="absolute left-4 top-1/2 -translate-y-1/2 text-primary transition-colors" size={20} />
+                          <User
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-primary transition-colors"
+                            size={20}
+                          />
                           <input
                             type="text"
                             id="name"
@@ -118,11 +198,17 @@ export const ReservationsSection: React.FC = () => {
                       </div>
 
                       <div>
-                        <label htmlFor="email" className="block font-montserrat font-medium text-text mb-2">
+                        <label
+                          htmlFor="email"
+                          className="block font-montserrat font-medium text-text mb-2"
+                        >
                           Email *
                         </label>
                         <div className="relative">
-                          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-primary transition-colors" size={20} />
+                          <Mail
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-primary transition-colors"
+                            size={20}
+                          />
                           <input
                             type="email"
                             id="email"
@@ -137,11 +223,17 @@ export const ReservationsSection: React.FC = () => {
                       </div>
 
                       <div>
-                        <label htmlFor="phone" className="block font-montserrat font-medium text-text mb-2">
+                        <label
+                          htmlFor="phone"
+                          className="block font-montserrat font-medium text-text mb-2"
+                        >
                           Téléphone *
                         </label>
                         <div className="relative">
-                          <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-primary transition-colors" size={20} />
+                          <Phone
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-primary transition-colors"
+                            size={20}
+                          />
                           <input
                             type="tel"
                             id="phone"
@@ -156,11 +248,17 @@ export const ReservationsSection: React.FC = () => {
                       </div>
 
                       <div>
-                        <label htmlFor="guests" className="block font-montserrat font-medium text-text mb-2">
+                        <label
+                          htmlFor="guests"
+                          className="block font-montserrat font-medium text-text mb-2"
+                        >
                           Nombre de personnes *
                         </label>
                         <div className="relative">
-                          <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-primary transition-colors" size={20} />
+                          <Users
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-primary transition-colors"
+                            size={20}
+                          />
                           <select
                             id="guests"
                             name="guests"
@@ -180,11 +278,17 @@ export const ReservationsSection: React.FC = () => {
                       </div>
 
                       <div>
-                        <label htmlFor="date" className="block font-montserrat font-medium text-text mb-2">
+                        <label
+                          htmlFor="date"
+                          className="block font-montserrat font-medium text-text mb-2"
+                        >
                           Date souhaitée *
                         </label>
                         <div className="relative">
-                          <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-primary transition-colors" size={20} />
+                          <Calendar
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-primary transition-colors"
+                            size={20}
+                          />
                           <input
                             type="date"
                             id="date"
@@ -198,11 +302,17 @@ export const ReservationsSection: React.FC = () => {
                       </div>
 
                       <div>
-                        <label htmlFor="time" className="block font-montserrat font-medium text-text mb-2">
+                        <label
+                          htmlFor="time"
+                          className="block font-montserrat font-medium text-text mb-2"
+                        >
                           Heure souhaitée *
                         </label>
                         <div className="relative">
-                          <Clock className="absolute left-4 top-1/2 -translate-y-1/2 text-primary transition-colors" size={20} />
+                          <Clock
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-primary transition-colors"
+                            size={20}
+                          />
                           <select
                             id="time"
                             name="time"
@@ -230,11 +340,17 @@ export const ReservationsSection: React.FC = () => {
                     </div>
 
                     <div>
-                      <label htmlFor="message" className="block font-montserrat font-medium text-text mb-2">
+                      <label
+                        htmlFor="message"
+                        className="block font-montserrat font-medium text-text mb-2"
+                      >
                         Message ou demande spéciale (optionnel)
                       </label>
                       <div className="relative">
-                        <MessageSquare className="absolute left-4 top-4 text-primary transition-colors" size={20} />
+                        <MessageSquare
+                          className="absolute left-4 top-4 text-primary transition-colors"
+                          size={20}
+                        />
                         <textarea
                           id="message"
                           name="message"
@@ -257,7 +373,9 @@ export const ReservationsSection: React.FC = () => {
                         whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
                         whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                       >
-                        {isSubmitting ? "Envoi en cours..." : "Confirmer la réservation"}
+                        {isSubmitting
+                          ? "Envoi en cours..."
+                          : "Confirmer la réservation"}
                       </motion.button>
                     </div>
                   </div>

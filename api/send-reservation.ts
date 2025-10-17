@@ -64,7 +64,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Email au restaurant
     console.log("📧 Envoi de l'email au restaurant...");
     const emailRestaurant = await resend.emails.send({
-      from: "Le Seven Restaurant <onboarding@resend.dev>",
+      from: "Le Seven Restaurant <noreply@leseven-grenoble.fr>",
       to: "restaurantleseven38@gmail.com",
       subject: `Nouvelle réservation - ${name}`,
       html: `
@@ -143,7 +143,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Email de confirmation au client
     console.log("📧 Envoi de l'email de confirmation au client...");
     const emailClient = await resend.emails.send({
-      from: "Le Seven Restaurant <onboarding@resend.dev>",
+      from: "Le Seven Restaurant <noreply@leseven-grenoble.fr>",
       to: email,
       subject: `Demande de réservation reçue - Le Seven`,
       html: `

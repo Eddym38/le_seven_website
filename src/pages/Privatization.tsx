@@ -2,7 +2,18 @@ import React, { useState } from "react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { ScrollToTop } from "../components/ScrollToTop";
-import { Users, Calendar, Utensils, Sparkles, Mail, User, Phone, MessageSquare } from "lucide-react";
+import {
+  Users,
+  Calendar,
+  Utensils,
+  Sparkles,
+  Mail,
+  User,
+  Phone,
+  MessageSquare,
+  CheckCircle,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const Privatization: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -15,20 +26,93 @@ export const Privatization: React.FC = () => {
     message: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Demande de privatisation - ${formData.eventType}`);
-    const body = encodeURIComponent(
-      `Nom: ${formData.name}\nEmail: ${formData.email}\nTéléphone: ${formData.phone}\nType d'événement: ${formData.eventType}\nNombre d'invités: ${formData.guests}\nDate souhaitée: ${formData.date}\n\nMessage:\n${formData.message}`
-    );
-    window.location.href = `mailto:restaurantleseven38@gmail.com?subject=${subject}&body=${body}`;
+    setIsSubmitting(true);
+
+    console.log("🎉 Envoi de la demande de privatisation...");
+    console.log("📦 Données du formulaire:", formData);
+
+    try {
+      // Utiliser l'URL relative en production, localhost en dev
+      const apiUrl = import.meta.env.DEV
+        ? "http://localhost:3001/api/send-privatization"
+        : "/api/send-privatization";
+
+      console.log("🌐 Appel API vers", apiUrl);
+
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      console.log(
+        "📡 Réponse du serveur - Status:",
+        response.status,
+        response.statusText
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("❌ Erreur serveur:", errorData);
+        throw new Error("Erreur lors de l'envoi de la demande");
+      }
+
+      const data = await response.json();
+      console.log("✅ Réponse du serveur:", data);
+
+      if (data.success) {
+        console.log("🎉 Demande de privatisation envoyée avec succès !");
+        setIsSubmitted(true);
+
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            eventType: "",
+            guests: "",
+            date: "",
+            message: "",
+          });
+        }, 5000);
+      }
+    } catch (error) {
+      console.error("❌ Erreur complète:", error);
+      console.error(
+        "❌ Type d'erreur:",
+        error instanceof Error ? error.constructor.name : typeof error
+      );
+      console.error(
+        "❌ Message d'erreur:",
+        error instanceof Error ? error.message : error
+      );
+
+      alert(
+        "Une erreur est survenue lors de l'envoi de votre demande. Veuillez réessayer."
+      );
+    } finally {
+      setIsSubmitting(false);
+      console.log("🏁 Fin de la soumission du formulaire");
+    }
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -51,8 +135,9 @@ export const Privatization: React.FC = () => {
             Privatisation
           </h1>
           <p className="font-montserrat text-xl text-[#4C4C4C]/80 leading-relaxed max-w-3xl mx-auto">
-            Créez des moments inoubliables dans l'ambiance chaleureuse et conviviale du Seven.
-            Notre restaurant se transforme pour accueillir vos événements les plus précieux.
+            Créez des moments inoubliables dans l'ambiance chaleureuse et
+            conviviale du Seven. Notre restaurant se transforme pour accueillir
+            vos événements les plus précieux.
           </p>
         </div>
       </section>
@@ -123,8 +208,9 @@ export const Privatization: React.FC = () => {
                     Buffet
                   </h3>
                   <p className="font-montserrat text-[#4C4C4C]/80 text-sm">
-                    Une sélection variée de plats méditerranéens présentés en buffet.
-                    Idéal pour les événements conviviaux et décontractés.
+                    Une sélection variée de plats méditerranéens présentés en
+                    buffet. Idéal pour les événements conviviaux et
+                    décontractés.
                   </p>
                 </div>
 
@@ -133,8 +219,8 @@ export const Privatization: React.FC = () => {
                     Dîner cocktail
                   </h3>
                   <p className="font-montserrat text-[#4C4C4C]/80 text-sm">
-                    Canapés raffinés et bouchées savoureuses pour un cocktail élégant.
-                    Parfait pour les réceptions debout.
+                    Canapés raffinés et bouchées savoureuses pour un cocktail
+                    élégant. Parfait pour les réceptions debout.
                   </p>
                 </div>
 
@@ -143,8 +229,8 @@ export const Privatization: React.FC = () => {
                     Mezzé libanais
                   </h3>
                   <p className="font-montserrat text-[#4C4C4C]/80 text-sm">
-                    Découverte authentique des saveurs du Liban avec nos mezzés traditionnels.
-                    Une expérience culinaire unique.
+                    Découverte authentique des saveurs du Liban avec nos mezzés
+                    traditionnels. Une expérience culinaire unique.
                   </p>
                 </div>
               </div>
@@ -160,168 +246,265 @@ export const Privatization: React.FC = () => {
               Demande de privatisation
             </h2>
             <p className="font-montserrat text-lg text-[#4C4C4C]/80 max-w-2xl mx-auto">
-              Remplissez ce formulaire et nous vous contacterons dans les plus brefs délais pour concrétiser votre projet
+              Remplissez ce formulaire et nous vous contacterons dans les plus
+              brefs délais pour concrétiser votre projet
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-gradient-to-br from-[#FAF6EF] to-white rounded-2xl shadow-xl p-8 md:p-12 border border-[#92C6C4]/10">
-            <div className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block font-montserrat font-medium text-[#4C4C4C] mb-2">
-                    Nom complet *
-                  </label>
-                  <div className="relative">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 text-[#92C6C4]" size={20} />
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
-                      placeholder="Jean Dupont"
+          <AnimatePresence mode="wait">
+            {isSubmitted ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="max-w-3xl mx-auto"
+              >
+                <div className="bg-gradient-to-br from-[#92C6C4]/10 to-[#F7C8C8]/10 rounded-2xl p-12 text-center shadow-xl">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                  >
+                    <CheckCircle
+                      size={64}
+                      className="text-[#92C6C4] mx-auto mb-6"
                     />
-                  </div>
+                  </motion.div>
+                  <h3 className="font-pacifico text-3xl text-[#92C6C4] mb-4">
+                    Demande envoyée avec succès ! 🎉
+                  </h3>
+                  <p className="font-montserrat text-[#4C4C4C] text-lg mb-4">
+                    Merci {formData.name} ! Nous avons bien reçu votre demande
+                    de privatisation.
+                  </p>
+                  <p className="font-montserrat text-[#4C4C4C]/80">
+                    Notre équipe vous contactera dans les{" "}
+                    <strong>24 à 48 heures</strong> au {formData.phone} pour
+                    discuter des détails de votre événement.
+                  </p>
                 </div>
-
-                <div>
-                  <label htmlFor="email" className="block font-montserrat font-medium text-[#4C4C4C] mb-2">
-                    Email *
-                  </label>
-                  <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-[#92C6C4]" size={20} />
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
-                      placeholder="jean.dupont@email.com"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="block font-montserrat font-medium text-[#4C4C4C] mb-2">
-                    Téléphone *
-                  </label>
-                  <div className="relative">
-                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-[#92C6C4]" size={20} />
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      required
-                      className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
-                      placeholder="+33 6 12 34 56 78"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="eventType" className="block font-montserrat font-medium text-[#4C4C4C] mb-2">
-                    Type d'événement *
-                  </label>
-                  <div className="relative">
-                    <Sparkles className="absolute left-4 top-1/2 -translate-y-1/2 text-[#92C6C4]" size={20} />
-                    <select
-                      id="eventType"
-                      name="eventType"
-                      value={formData.eventType}
-                      onChange={handleChange}
-                      required
-                      className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white appearance-none cursor-pointer"
-                    >
-                      <option value="">Sélectionner un type</option>
-                      <option value="Mariage">Mariage</option>
-                      <option value="Fiançailles">Fiançailles</option>
-                      <option value="Anniversaire">Anniversaire</option>
-                      <option value="Dîner d'entreprise">Dîner d'entreprise</option>
-                      <option value="Séminaire">Séminaire</option>
-                      <option value="Pot de départ">Pot de départ</option>
-                      <option value="Autre">Autre célébration</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="guests" className="block font-montserrat font-medium text-[#4C4C4C] mb-2">
-                    Nombre d'invités *
-                  </label>
-                  <div className="relative">
-                    <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-[#92C6C4]" size={20} />
-                    <input
-                      type="number"
-                      id="guests"
-                      name="guests"
-                      value={formData.guests}
-                      onChange={handleChange}
-                      required
-                      min="20"
-                      max="50"
-                      className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
-                      placeholder="30"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="date" className="block font-montserrat font-medium text-[#4C4C4C] mb-2">
-                    Date souhaitée *
-                  </label>
-                  <div className="relative">
-                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-[#92C6C4]" size={20} />
-                    <input
-                      type="date"
-                      id="date"
-                      name="date"
-                      value={formData.date}
-                      onChange={handleChange}
-                      required
-                      className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block font-montserrat font-medium text-[#4C4C4C] mb-2">
-                  Détails de votre événement *
-                </label>
-                <div className="relative">
-                  <MessageSquare className="absolute left-4 top-4 text-[#92C6C4]" size={20} />
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={6}
-                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white resize-none"
-                    placeholder="Décrivez votre projet: formule souhaitée (buffet, cocktail, mezzé), budget estimé, attentes particulières, allergies ou régimes spéciaux..."
-                  />
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-[#92C6C4] to-[#98A88B] text-white px-8 py-5 rounded-xl font-montserrat font-semibold text-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              </motion.div>
+            ) : (
+              <motion.div
+                key="form"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <form
+                  onSubmit={handleSubmit}
+                  className="bg-gradient-to-br from-[#FAF6EF] to-white rounded-2xl shadow-xl p-8 md:p-12 border border-[#92C6C4]/10"
                 >
-                  Envoyer ma demande
-                </button>
-                <p className="text-center font-montserrat text-sm text-[#4C4C4C]/60 mt-4">
-                  Nous vous répondrons dans les 24 à 48 heures
-                </p>
-              </div>
-            </div>
-          </form>
+                  <div className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <label
+                          htmlFor="name"
+                          className="block font-montserrat font-medium text-[#4C4C4C] mb-2"
+                        >
+                          Nom complet *
+                        </label>
+                        <div className="relative">
+                          <User
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#92C6C4]"
+                            size={20}
+                          />
+                          <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            required
+                            className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
+                            placeholder="Jean Dupont"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="email"
+                          className="block font-montserrat font-medium text-[#4C4C4C] mb-2"
+                        >
+                          Email *
+                        </label>
+                        <div className="relative">
+                          <Mail
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#92C6C4]"
+                            size={20}
+                          />
+                          <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                            className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
+                            placeholder="jean.dupont@email.com"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="phone"
+                          className="block font-montserrat font-medium text-[#4C4C4C] mb-2"
+                        >
+                          Téléphone *
+                        </label>
+                        <div className="relative">
+                          <Phone
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#92C6C4]"
+                            size={20}
+                          />
+                          <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            required
+                            className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
+                            placeholder="+33 6 12 34 56 78"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="eventType"
+                          className="block font-montserrat font-medium text-[#4C4C4C] mb-2"
+                        >
+                          Type d'événement *
+                        </label>
+                        <div className="relative">
+                          <Sparkles
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#92C6C4]"
+                            size={20}
+                          />
+                          <select
+                            id="eventType"
+                            name="eventType"
+                            value={formData.eventType}
+                            onChange={handleChange}
+                            required
+                            className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white appearance-none cursor-pointer"
+                          >
+                            <option value="">Sélectionner un type</option>
+                            <option value="Mariage">Mariage</option>
+                            <option value="Fiançailles">Fiançailles</option>
+                            <option value="Anniversaire">Anniversaire</option>
+                            <option value="Dîner d'entreprise">
+                              Dîner d'entreprise
+                            </option>
+                            <option value="Séminaire">Séminaire</option>
+                            <option value="Pot de départ">Pot de départ</option>
+                            <option value="Autre">Autre célébration</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="guests"
+                          className="block font-montserrat font-medium text-[#4C4C4C] mb-2"
+                        >
+                          Nombre d'invités *
+                        </label>
+                        <div className="relative">
+                          <Users
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#92C6C4]"
+                            size={20}
+                          />
+                          <input
+                            type="number"
+                            id="guests"
+                            name="guests"
+                            value={formData.guests}
+                            onChange={handleChange}
+                            required
+                            min="20"
+                            max="50"
+                            className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
+                            placeholder="30"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="date"
+                          className="block font-montserrat font-medium text-[#4C4C4C] mb-2"
+                        >
+                          Date souhaitée *
+                        </label>
+                        <div className="relative">
+                          <Calendar
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#92C6C4]"
+                            size={20}
+                          />
+                          <input
+                            type="date"
+                            id="date"
+                            name="date"
+                            value={formData.date}
+                            onChange={handleChange}
+                            required
+                            className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="message"
+                        className="block font-montserrat font-medium text-[#4C4C4C] mb-2"
+                      >
+                        Détails de votre événement *
+                      </label>
+                      <div className="relative">
+                        <MessageSquare
+                          className="absolute left-4 top-4 text-[#92C6C4]"
+                          size={20}
+                        />
+                        <textarea
+                          id="message"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleChange}
+                          required
+                          rows={6}
+                          className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-[#92C6C4]/20 focus:border-[#92C6C4] focus:outline-none transition-colors font-montserrat bg-white resize-none"
+                          placeholder="Décrivez votre projet: formule souhaitée (buffet, cocktail, mezzé), budget estimé, attentes particulières, allergies ou régimes spéciaux..."
+                        />
+                      </div>
+                    </div>
+
+                    <div className="pt-4">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className={`w-full bg-gradient-to-r from-[#92C6C4] to-[#98A88B] text-white px-8 py-5 rounded-xl font-montserrat font-semibold text-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
+                          isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+                        }`}
+                      >
+                        {isSubmitting
+                          ? "Envoi en cours..."
+                          : "Envoyer ma demande"}
+                      </button>
+                      <p className="text-center font-montserrat text-sm text-[#4C4C4C]/60 mt-4">
+                        Nous vous répondrons dans les 24 à 48 heures
+                      </p>
+                    </div>
+                  </div>
+                </form>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
@@ -336,8 +519,9 @@ export const Privatization: React.FC = () => {
                 Cuisine authentique
               </h3>
               <p className="font-montserrat text-[#4C4C4C]/80">
-                Tous nos plats sont préparés maison avec des ingrédients frais et de qualité.
-                Une cuisine méditerranéenne généreuse qui ravira tous vos invités.
+                Tous nos plats sont préparés maison avec des ingrédients frais
+                et de qualité. Une cuisine méditerranéenne généreuse qui ravira
+                tous vos invités.
               </p>
             </div>
 
@@ -346,8 +530,8 @@ export const Privatization: React.FC = () => {
                 Ambiance chaleureuse
               </h3>
               <p className="font-montserrat text-[#4C4C4C]/80">
-                Notre décor bohème et notre atmosphère conviviale créent le cadre idéal
-                pour vos événements intimes et chaleureux.
+                Notre décor bohème et notre atmosphère conviviale créent le
+                cadre idéal pour vos événements intimes et chaleureux.
               </p>
             </div>
 
@@ -356,8 +540,8 @@ export const Privatization: React.FC = () => {
                 Service personnalisé
               </h3>
               <p className="font-montserrat text-[#4C4C4C]/80">
-                Notre équipe s'adapte à vos besoins spécifiques et vous accompagne
-                dans l'organisation de votre événement de A à Z.
+                Notre équipe s'adapte à vos besoins spécifiques et vous
+                accompagne dans l'organisation de votre événement de A à Z.
               </p>
             </div>
 

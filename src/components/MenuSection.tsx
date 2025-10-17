@@ -1,4 +1,6 @@
 import React from "react";
+import carteMenu from "../assets/pdf/menu_le_seven_vf.pdf";
+import carteBoisson from "../assets/pdf/carte_boisson_le_seven_vf.pdf";
 
 export const MenuSection: React.FC = () => {
   return (
@@ -13,7 +15,7 @@ export const MenuSection: React.FC = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
             <a
-              href="https://www.thefork.com"
+              href={carteMenu}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-[#92C6C4] text-white px-12 py-5 rounded-full font-montserrat font-semibold text-xl hover:bg-[#F7C8C8] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
@@ -21,7 +23,7 @@ export const MenuSection: React.FC = () => {
               Carte Menu
             </a>
             <a
-              href="https://www.thefork.com"
+              href={carteBoisson}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-[#92C6C4] text-white px-12 py-5 rounded-full font-montserrat font-semibold text-xl hover:bg-[#F7C8C8] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"

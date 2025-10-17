@@ -1,8 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Gérer CORS
   res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -28,8 +26,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   console.log("\n🔔 === NOUVELLE REQUÊTE DE RÉSERVATION ===");
+
+  // Vérifier que la clé API existe
+  if (!process.env.RESEND_API_KEY) {
+    console.error(
+      "❌ RESEND_API_KEY manquante dans les variables d'environnement"
+    );
+    return res.status(500).json({
+      error: "Configuration serveur incorrecte",
+      details: "RESEND_API_KEY manquante",
+    });
+  }
+
+  console.log(
+    "✅ RESEND_API_KEY détectée:",
+    process.env.RESEND_API_KEY.substring(0, 10) + "..."
+  );
   console.log("📅 Date/Heure:", new Date().toLocaleString("fr-FR"));
   console.log("📦 Données reçues:", JSON.stringify(req.body, null, 2));
+
+  // Initialiser Resend avec la clé API
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
     const { name, email, phone, guests, date, time, message } = req.body;
@@ -214,9 +231,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     console.error("Message:", error instanceof Error ? error.message : error);
     console.error("Stack:", error instanceof Error ? error.stack : "N/A");
 
+    // Si c'est une erreur Resend, afficher plus de détails
+    if (error && typeof error === "object" && "response" in error) {
+      console.error("Réponse Resend:", JSON.stringify(error, null, 2));
+    }
+
     return res.status(500).json({
       error: "Erreur lors de l'envoi de la réservation",
       details: error instanceof Error ? error.message : "Erreur inconnue",
+      // En production, vous voudrez peut-être masquer ces détails
+      debug:
+        process.env.NODE_ENV === "development"
+          ? {
+              type:
+                error instanceof Error ? error.constructor.name : typeof error,
+              stack: error instanceof Error ? error.stack : undefined,
+            }
+          : undefined,
     });
   }
 }
